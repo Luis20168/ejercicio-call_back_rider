@@ -1,6 +1,6 @@
 
 const miButton=document.getElementById('miButton');
-const miDiv=document.getElementById('miDiv');
+const miDiv =document.getElementById('miDiv');
 
 
 
@@ -21,7 +21,7 @@ const getData= c1=>{
     
 }
 
-const showData=c2=>{
+const showData=()=>{
     return new Promise((resuelve1,rechazar)=>{
         setText("Esperando autorizacion");
 
