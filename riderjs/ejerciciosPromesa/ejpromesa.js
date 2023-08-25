@@ -8,8 +8,8 @@ const miDiv=document.getElementById('miDiv');
 
 
 
-const setText=(suma,  promedio) =>{
-    miDiv.textContent= `la suma es de ${suma} y promedio de ${promedio}`;
+const setText=(suma,  promedio, porcentaje1,porcentaje2, porcentaje3) =>{
+    miDiv.textContent= `la suma es de ${suma} y promedio de ${promedio} y pocetaje de notas: 1.= ${porcentaje1}  2.=  ${porcentaje2}  3.= ${porcentaje3} `;
 }
 
 const getData= (c1) =>{
@@ -24,6 +24,10 @@ const getData= (c1) =>{
             
             resuelve1(true)
 
+        }
+
+        else{
+            rechazar (false)
         }
         
         
@@ -55,15 +59,28 @@ const showData= (arrayNotas)=>{
         
         let nota = Object.values(objNotas);
         let suma= 0; 
+        let p= 0;
+        let porcntaje1=0;
+        let porcntaje2=0;
+        let porcntaje3=0;
         let promedio=0;
 
         for(let i=0; i< nota.length; i++){
             
             let notas= nota[i];
+            porcntaje1= parseFloat( nota[0]*0.03);
+            porcntaje2= parseFloat( nota[1]*0.03);
+            porcntaje3= parseFloat( nota[2]*0.03);
+
+
             suma= suma+notas;
             promedio= suma/nota.length;
 
         }
+
+
+
+
         console.log(suma);
         console.log(promedio);
 
@@ -71,7 +88,12 @@ const showData= (arrayNotas)=>{
 
 
         setTimeout(()=>{
-            resuelve1({suma: suma, promedio: promedio});
+            resuelve1({
+                suma: suma,
+                promedio: promedio,
+                porcentaje1:porcntaje1,
+                porcentaje2: porcntaje2,
+                porcentaje3: porcntaje3});
         }, 2000)
 
     })
@@ -93,10 +115,10 @@ function miNota(nota1,nota2,nota3){
 
         
     }).then(user=>{
-        setText(user.suma, user.promedio)
+        setText(user.suma, user.promedio, user.porcentaje1,user.porcentaje2,user.porcentaje3)
     })
 
-}
+};
 
 
     

@@ -1,62 +1,103 @@
 
-let arrayEstudiantes=[];
 
-function datos(id,nombre,nota1,nota2,nota3,definitiva){
-    this.id= id
-    this.nombre= nombre
-    this.nota1= nota1
-    this.nota2= nota2
-    this.nota3=nota3
-    this.definitiva =definitiva
 
-}
 
 const añadir= document.getElementById("añadir");
 const tabla= document.getElementById("tabla");
 
 
 
-añadir.addEventListener('click', ()=>{
-    let estudiante= new datos('1','luis', '5','5','5','5');
-    arrayEstudiantes.push(estudiante);
-    mostrar(estudiante);
-   
+const promedio= (arrayEstudiantes)=>{
+    return new Promise((resolve, reject)=>{
+        let promedio= 0;
+        arrayEstudiantes.forEach((notas)=>{
+            
+            promedio= (promedio+notas)
 
+        })
+        promedio= promedio/arrayEstudiantes.length;
+
+        resolve(promedio);
+
+
+
+    })
     
+
+}
+
+
+
+
+
+//--------------------------------------
+function input(id, nombre,nota1,nota2,nota3){
+    let arrayEstudiantes=[nota1,nota2,nota3];
     
+
+    promedio(arrayEstudiantes).then(definitiva=>{
+        let estudiante={
+            id: id,
+            nombre: nombre,
+            nota1: nota1,
+            nota2: nota2,
+            nota3: nota3,
+            definitiva: definitiva
     
+        };
+        arrayEstudiantes.push(estudiante);
 
-
-
-});
-const delet=document.getElementById('delete');
-
-delet.addEventListener('click', ()=>{
-    for(let i=0 ; i<arrayEstudiantes.length; i++) {
-        arrayEstudiantes.pop(i)
+    }).then(u=>{
         
-    };
-    console.log(arrayEstudiantes)
-    mostrar();
+    })
 
-})
+
+    
     
 
+    
+
+}
 
 
 
 
 
-function mostrar(){
 
 
-    tabla.innerHTML='';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function mostrar(arrayEstudiantes){
+
+
+    tabla.innerHTML=`
+    <tr> 
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Nota 1</th>
+                <th>Nota 2</th>
+                <th>Nota 3</th>
+                <th>Definitiva</th>
+                <th>Acciones</th>
+            </tr>`;
 
     arrayEstudiantes.forEach(est=>{
         const tr= document.createElement('tr');
-        tr.innerHTML= `
+        tr.innerHTML=`
         
-
         <td>${est.id}</td>
         <td>${est.nombre}</td>
         <td>${est.nota1}</td>
@@ -71,11 +112,12 @@ function mostrar(){
 
         tabla.appendChild(tr);
         
-        console.log(arrayEstudiantes)
+        
     
         
 
     })
+    console.log(arrayEstudiantes)
     
 
 
