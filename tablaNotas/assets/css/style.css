@@ -1,0 +1,43 @@
+
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+
+.contenedor{
+   background-color: white;
+   text-align: center;
+   padding: 20px;
+   right: 50%;
+   top: 50%;
+
+}
+
+table{
+    margin: 0 auto;
+    width: 50%;
+    
+}
+
+table td{
+    height: 30px;
+    padding: 10px;
+
+}
+table td button{
+    width: 20%;
+    
+    padding: 5px;
+    border: none;
+    color: white;
+    background-color: blueviolet;
+    border-radius: 20px;
+
+}
+table td button:hover{
+    color: black
+    
+}
+
