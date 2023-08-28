@@ -8,14 +8,14 @@
 </head>
 <body>
 
-    <header>
+    <header style="text-align: center;">
+        <h1>Tabla de Notas</h1>
         
     </header>
 
 
 
     <div class="contenedor">
-        <h1>Tabla de Notas</h1>
 
 
         <table border="1" class="tabla" id="tabla">
@@ -53,34 +53,38 @@
     </div>
 
 
+    
 
 
-    <div  class="modal">
+
+
+    <div  class="modal display" id="modal">
 
         <div class="id">
             <label for="id">Id</label>
-            <input type="number" id="idd">
+            <input type="number" id="idd" value="1">
         </div>
 
         <div class="nombre">
             <label for="id">Nombre</label>
-            <input type="text" id="nombre" >
+            <input type="text" id="nombre" value="luis" >
         </div>
 
         <div class="nota1">
             <label for="id">Nota 1</label>
-            <input type="number" id="nota1" >
+            <input type="number" id="nota1"  value="5">
         </div>
 
         <div class="nota2">
             <label for="id">Nota 2</label>
-            <input type="number" id="nota2">
+            <input type="number" id="nota2"  value="5">
         </div>
 
         <div class="nota3">
             <label for="id">Nota 3</label>
-            <input type="number" id="nota3">
+            <input type="number" id="nota3"  value="5">
         </div>
+        <br><br><br>
 
 
 
@@ -92,15 +96,21 @@
         
         <input type="button" class="calcular" value="Añadir" onclick="document.getElementById(input (idd.value,nombre.value,parseFloat(nota1.value),parseFloat(nota2.value),parseFloat(nota3.value)))" >
         <button id="delete">Eliminar</button>
+        <br><br>
+        
         
 
         
-    
-
         
-
+        
+        
+        
+        
+        
     </div>
-
+    <button id="btn-modal" class="btn" >Registrar Estidiante</button>
+    
+    
     
 
 
