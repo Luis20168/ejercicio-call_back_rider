@@ -37,15 +37,15 @@ const showData=()=>{
 
 
 
-miButton.addEventListener("click",  ()=>{
-    getData().then(permitido=>{
-        if(permitido){
-            return showData()
+miButton.addEventListener("click", async([])=>{
+    let jugador= null;
+    const permitido= await getData();
 
-        }
 
-        
-    }).then(user=>{
-        setText(user.jugador)
-    })
+    if(permitido){
+        jugador= await showData() 
+    }
+
+
+    setText(jugador.name)
 })

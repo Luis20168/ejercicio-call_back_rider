@@ -1,5 +1,5 @@
 //modal
-
+console.log('Async')
 const modal= document.getElementById('modal');
 const btnModal= document.getElementById('btn-modal');
 
@@ -22,8 +22,9 @@ const tabla= document.getElementById("tabla");
 
 
 
+
+
 const promedio= (notas)=>{
-    return new Promise((resolve, reject)=>{
         let promedio= 0;
         notas.forEach((notas)=>{
             
@@ -32,19 +33,14 @@ const promedio= (notas)=>{
         })
         promedio= promedio/notas.length;
 
-        resolve(promedio);
-
-
-
-    })
-    
+        return promedio;
 
 }
 
 
 const objeto= (estudiante)=>{
 
-    return new Promise((resolve, reject)=>{
+    
         let est={
             id: estudiante[0],
             nombre: estudiante[1],
@@ -69,16 +65,11 @@ const objeto= (estudiante)=>{
         
         
         
-        setTimeout(()=>{
-            console.log(allEstudiantes);
-            resolve (allEstudiantes);
-            mostrar(allEstudiantes)
-
-        },1)
+        return allEstudiantes
 
 
 
-    })
+    
     
     
 
@@ -118,7 +109,7 @@ const mostrar= array =>{
             <td> <input disabled="" type="number" class="input" value="${est.nota3}" id="n3"</td>
             <td> <input disabled="" type="number" class="input" value="${est.definitiva}" id="def" </td>
 
-            <td id="acciones"> <button id="editar" class="editar">Editar</button> <button>Eliminar</button> <button class="guardar ">Guardar</button></td>
+            <td id="acciones"> <button id="editar" class="editar">Editar</button> <button class= "delete">Eliminar</button> <button class="guardar ">Guardar</button></td>
             
         
             `
@@ -130,6 +121,8 @@ const mostrar= array =>{
     
 
     })
+
+    return array;
 
     
 
@@ -145,8 +138,7 @@ const mostrar= array =>{
 const editar= (array)=>{
     
     
-    
-        const acciones= document.getElementById('acciones');
+
         
         
         
@@ -180,7 +172,7 @@ const editar= (array)=>{
                 
 
                 if(editado){
-                    let estudiante= array.forEach(estudiante=>{
+                    let est= array.forEach(estudiante=>{
                         if(estudiante.id== upId){
                             estudiante.id== parseInt(upId)
                             estudiante.nombre= upNombre
@@ -189,25 +181,28 @@ const editar= (array)=>{
                             estudiante.nota3= parseInt(upNota3)
                             const nose=[estudiante.nota1, estudiante.nota2, estudiante.nota3]
 
-                            
-
-
                             let newNota= promedio(nose);
                             estudiante.definitiva= newNota;
+
+                            
                             
                             
                             
 
-                
+                    
 
                             
 
                         }
 
                         
+
+                        
                         
                         
                     })
+                    
+                        
                     
                     
                     
@@ -232,11 +227,31 @@ const editar= (array)=>{
                     array=[...array ];
 
                 }
-                mostrar(array)
+                mostrar(allEstudiantes)
                 
-                resolve (array) 
+                
+                
                 
             };
+
+
+            if(e.target.classList.contains('delete')){
+                console.log('eliminando');
+                const upId= fila.children[0].querySelector('#id').value;
+                console.log(upId)
+                
+
+                
+
+
+                allEstudiantes= allEstudiantes.filter(
+                    obj => obj.id !== upId
+                    
+                    
+                );
+
+                mostrar(allEstudiantes)
+            }
 
             
 
@@ -268,24 +283,24 @@ const editar= (array)=>{
 
 
 
-
-
-//--------------------------------------
-function input(id, nombre,nota1,nota2,nota3){
-    modal.classList.add('display')
+async function input (id, nombre,nota1,nota2,nota3){
+    modal.classList.add('display');
     let notas=[nota1,nota2,nota3];
 
+    const prom=   await promedio(notas);
 
-    promedio(notas).then(definitiva=>{
-        let estudiante=[id, nombre, nota1, nota2, nota3, definitiva];
-        return objeto(estudiante);
+    let estudiante=[id, nombre, nota1, nota2, nota3, prom];
     
 
-        
-    }).then((array)=>{
-        return editar(array), mostrar(array) ;
-        
-    })
+    let obj= await objeto(estudiante);
+    console.log(obj);
+    let ed= await mostrar(obj)
+
+    let fin= editar(ed)
+
+    if(fin){
+        mostrar
+    }
 
     
 
@@ -294,6 +309,8 @@ function input(id, nombre,nota1,nota2,nota3){
     
 
 };
+
+
 
 
 
