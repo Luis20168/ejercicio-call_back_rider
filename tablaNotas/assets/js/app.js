@@ -105,11 +105,12 @@ const mostrar= array =>{
                     <th>Nota 3</th>
                     <th>Definitiva</th>
                     <th>Acciones</th>
-                </tr>`;
+                </tr>
+                `;
 
         array.forEach(est=>{
             const tr= document.createElement('tr');
-            tr.innerHTML=`
+            tr.innerHTML= `
             
             <td> <input disabled="" type="number" class="input" value="${est.id}" id="id"></td>
             <td> <input disabled="" type="text" class="input" value="${est.nombre}" id="name"></td>
@@ -118,7 +119,7 @@ const mostrar= array =>{
             <td> <input disabled="" type="number" class="input" value="${est.nota3}" id="n3"</td>
             <td> <input disabled="" type="number" class="input" value="${est.definitiva}" id="def" </td>
 
-            <td id="acciones"> <button id="editar" class="editar">Editar</button> <button>Eliminar</button> <button class="guardar ">Guardar</button></td>
+            <td id="acciones"> <button id="editar" class="editar">Editar</button> <button class="delete">Eliminar</button> <button class="guardar ">Guardar</button></td>
             
         
             `
@@ -150,117 +151,149 @@ const editar= (array)=>{
         
         
         
-        tabla.addEventListener('click',(e)=>{
-            const contenedorAcciones= e.target.parentElement //contendor de las acciones
-            const fila= e.target.parentElement.parentElement;
-            
-            if(e.target.classList.contains('editar')){
+        
+
+        return new Promise((resolve, reject)=>{
 
 
+            tabla.addEventListener('click',(e)=>{
+                const contenedorAcciones= e.target.parentElement //contendor de las acciones
+                const fila= e.target.parentElement.parentElement;
                 
-                for (let i = 1; i < 5; i++) {
-                    const unidad = fila.children[i];
-                    unidad.querySelector('input').disabled = false;
-                }
-                
-
-
-            }
-
-
-            if(e.target.classList.contains('guardar')){
-
-                const upId= fila.children[0].querySelector('#id').value;
-                const upNombre= fila.children[1].querySelector('#name').value;
-                const upNota1= fila.children[2].querySelector('#n1').value;
-                const upNota2= fila.children[3].querySelector('#n2').value;
-                const upNota3= fila.children[4].querySelector('#n3').value;
-
-                const editado= array.some(estudiantes=> estudiantes.id==upId);
-                
-
-                if(editado){
-                    let estudiante= array.forEach(estudiante=>{
-                        if(estudiante.id== upId){
-                            estudiante.id== parseInt(upId)
-                            estudiante.nombre= upNombre
-                            estudiante.nota1= parseInt(upNota1)
-                            estudiante.nota2= parseInt(upNota2)
-                            estudiante.nota3= parseInt(upNota3)
-                            const nose=[estudiante.nota1, estudiante.nota2, estudiante.nota3]
-
-                            
-
-
-                            let newNota= promedio(nose);
-                            estudiante.definitiva= newNota;
-                            
-                            
-                            
-
-                
-
-                            
-
-                        }
-
-                        
-                        
-                        
-                    })
+                if(e.target.classList.contains('editar')){
+    
+    
                     
-                    
-                    
-                    
-                    
-                    
-
-                    for (let i = 1; i <= 5; i++) {
+                    for (let i = 1; i < 5; i++) {
                         const unidad = fila.children[i];
-                        unidad.querySelector('input').disabled = true;
+                        unidad.querySelector('input').disabled = false;
                     }
-
                     
-                    
-                    
-                    
-
-                    
-                    
-
-                }else{
-                    array=[...array ];
-
+    
+    
                 }
-                mostrar(array)
+
+                if(e.target.classList.contains('delete')){
+                    console.log('eliminando');
+                    const upId= fila.children[0].querySelector('#id').value;
+                    console.log(upId)
+                    
+    
+                    
+    
+    
+                    allEstudiantes= allEstudiantes.filter(
+                        obj => obj.id !== upId
+                        
+                        
+                    );
+    
+                    mostrar(allEstudiantes)
+                }
+    
+    
+                if(e.target.classList.contains('guardar')){
+    
+                    const upId= fila.children[0].querySelector('#id').value;
+                    const upNombre= fila.children[1].querySelector('#name').value;
+                    const upNota1= fila.children[2].querySelector('#n1').value;
+                    const upNota2= fila.children[3].querySelector('#n2').value;
+                    const upNota3= fila.children[4].querySelector('#n3').value;
+    
+                    const editado= array.some(estudiantes=> estudiantes.id==upId);
+                    
+    
+                    if(editado){
+                        let estudiante= array.forEach(estudiante=>{
+                            if(estudiante.id== upId){
+                                estudiante.id== parseInt(upId)
+                                estudiante.nombre= upNombre
+                                estudiante.nota1= parseInt(upNota1)
+                                estudiante.nota2= parseInt(upNota2)
+                                estudiante.nota3= parseInt(upNota3)
+                                const nose=[estudiante.nota1, estudiante.nota2, estudiante.nota3]
+    
+                                
+    
+    
+                                promedio(nose).then((def)=>{
+                                    estudiante.definitiva= def;
+                                    mostrar(array)
+                                    
+
+                                })
+
+                                
+    
+                            }
+                            
+                            
+    
+                            
+                            
+                            
+                        })
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+    
+                        for (let i = 1; i <= 5; i++) {
+                            const unidad = fila.children[i];
+                            unidad.querySelector('input').disabled = true;
+                        }
+    
+                        
+                        
+                        
+                        
+    
+                        
+                        
+    
+                    }else{
+                        array=[...array ];
+    
+                    }
+    
+                    
+                   
+                    
+                    
+                    
+                };
+    
                 
-                resolve (array) 
+    
                 
-            };
+                
+    
+    
+                
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             
 
-            
-            
 
 
-            
-        });
-
-
-        
-
-
-
-            
-
-
-        
-        
-        
-        
-        
-        
+        })
         
 
     
